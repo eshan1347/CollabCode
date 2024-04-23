@@ -36,9 +36,3 @@ To get started with CollabCode, follow these steps:
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute to CollabCode, please fork the repository, make your changes, and submit a pull request. Make sure to follow the existing code style and conventions.
-
-
-- Name: [Your Name]
-- Email: [Your Email Address]
-- GitHub: [Your GitHub Profile]
-
