@@ -1,0 +1,7 @@
+import torch
+
+x = torch.randn(2,3)
+y = torch.randn(3,8)
+
+z = x@y
+print('W')
