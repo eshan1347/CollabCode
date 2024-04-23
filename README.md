@@ -14,7 +14,6 @@ It also allows to run as well as save your code on a aws cloud server.
 
 - **Frontend**: React.js, Socket.IO, Axios
 - **Backend**: Node.js, Express.js, Socket.IO, AWS SDK
-- **Database**: MongoDB 
 - **Deployment**: AWS
 - **Other**: Multer (for file uploads), AWS S3 (for file storage)
 
