@@ -1,0 +1,9 @@
+import type { ContactMethod } from '../../types';
+export declare const censorAllButFirstAndLast: (value: string) => string;
+export declare const censorPhoneNumber: (val: string) => string;
+export declare const censorEmail: (val: string) => string;
+export declare const censorContactMethod: (type: ContactMethod, value: string) => string;
+export declare const hasSpecialChars: (password: string) => boolean;
+export declare const getTotpCodeURL: (issuer: string, username: string, secret: string) => string;
+export declare function trimValues<T extends Record<string, string>>(values: T, ...ignored: string[]): T;
+export declare const isValidEmail: (value: string | undefined) => boolean;
