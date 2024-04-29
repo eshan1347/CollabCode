@@ -1,0 +1,6 @@
+#include <stdio.h>
+
+int main() {
+    printf("New Yorkkkkkkkkkkkkkkkk!!!!!!!!!!!!!!!!");
+    return 0;
+}

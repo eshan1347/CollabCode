@@ -15,10 +15,11 @@ function CodeEditor() {
     const [result, setResult] = useState('');
     const [ext, setExt] = useState('py');
     const [file, setFile] = useState(null);
+    const [output, setOutput] = useState('');
 
     useEffect(() => {
 
-        setExt('py');
+        // setExt('py');
 
         socket.on('updateContent', (updatedContent) => {
             setContent(updatedContent);
@@ -34,6 +35,11 @@ function CodeEditor() {
 
         socket.on('updateStyleUnderline', (underline) => {
             setUnderline(underline);
+        });
+
+        socket.on('output', (output) => {
+            console.log('Output : ' + output)
+            setOutput(output);
         });
 
         return () => {
@@ -78,7 +84,16 @@ function CodeEditor() {
         // console.log(ext)
     };
 
+    const handleSelect = (event) => {
+        console.log('Selected Language: ' + event.target.value);
+        setExt(event.target.value);
+        console.log("Set ext: " , event.target.value)
+        socket.emit('ext', event.target.value);
+        // console.log('Selected Language: ' + ext);
+    };
+
     const handleFile = async () => {
+        socket.emit('code',content);
         const file = new File([content], `code.${ext}`, {type: 'text/plain'});
         try{
             const data = new FormData();
@@ -132,30 +147,30 @@ function CodeEditor() {
                             </div>
                         </div>
                         <div className="item borderless">
-                            <select id="select-language" className="ui dropdown">
+                            <select id="select-language" className="ui dropdown" value={ext} onChange={handleSelect} >
                                 {/* <!-- Options dynamically generated based on the languages available --> */}
                                 <option value="45" mode="UNKNOWN">Assembly (NASM 2.14.02)</option>
                                 <option value="46" mode="shell">Bash (5.0.0)</option>
                                 <option value="47" mode="UNKNOWN">Basic (FBC 1.07.1)</option> 
                                 <option value="1011" mode="UNKNOWN">Bosque (latest)</option>  
-                                <option value="75" mode="c">C (Clang 7.0.1)</option>
-                                <option value="1013" mode="c">C (Clang 9.0.1)</option>
-                                <option value="1001" mode="c">C (Clang 10.0.1)</option>
-                                <option value="48" mode="c">C (GCC 7.4.0)</option>
-                                <option value="49" mode="c">C (GCC 8.3.0)</option>
-                                <option value="50" mode="c">C (GCC 9.2.0)</option>
+                                <option value="c" mode="c">C (Clang 7.0.1)</option>
+                                <option value="c" mode="c">C (Clang 9.0.1)</option>
+                                <option value="c" mode="c">C (Clang 10.0.1)</option>
+                                <option value="c" mode="c">C (GCC 7.4.0)</option>
+                                <option value="c" mode="c">C (GCC 8.3.0)</option>
+                                <option value="c" mode="c">C (GCC 9.2.0)</option>
                                 <option value="51" mode="csharp">C# (Mono 6.6.0.161)</option>
                                 <option value="1022" mode="csharp">C# (Mono 6.10.0.104)</option>
                                 <option value="1021" mode="csharp">C# (.NET Core SDK 3.1.302)</option>
                                 <option value="1023" mode="csharp">C# Test (.NET Core SDK 3.1.302, NUnit 3.12.0)</option>
-                                <option value="76" mode="cpp">C++ (Clang 7.0.1)</option>
-                                <option value="1014" mode="cpp">C++ (Clang 9.0.1)</option>
-                                <option value="1002" mode="cpp">C++ (Clang 10.0.1)</option>
-                                <option value="52" mode="cpp">C++ (GCC 7.4.0)</option>
-                                <option value="53" mode="cpp">C++ (GCC 8.3.0)</option>
-                                <option value="54" mode="cpp">C++ (GCC 9.2.0)</option>
-                                <option value="1015" mode="cpp">C++ Test (Clang 10.0.1, Google Test 1.8.1)</option>
-                                <option value="1012" mode="cpp">C++ Test (GCC 8.4.0, Google Test 1.8.1)</option>
+                                <option value="cpp" mode="cpp">C++ (Clang 7.0.1)</option>
+                                <option value="cpp" mode="cpp">C++ (Clang 9.0.1)</option>
+                                <option value="cpp" mode="cpp">C++ (Clang 10.0.1)</option>
+                                <option value="cpp" mode="cpp">C++ (GCC 7.4.0)</option>
+                                <option value="cpp" mode="cpp">C++ (GCC 8.3.0)</option>
+                                <option value="cpp" mode="cpp">C++ (GCC 9.2.0)</option>
+                                <option value="cpp" mode="cpp">C++ Test (Clang 10.0.1, Google Test 1.8.1)</option>
+                                <option value="cpp" mode="cpp">C++ Test (GCC 8.4.0, Google Test 1.8.1)</option>
                                 <option value="1003" mode="c">C3 (latest)</option> 
                                 <option value="86" mode="clojure">Clojure (1.10.1)</option>
                                 <option value="77" mode="UNKNOWN">COBOL (GnuCOBOL 2.2)</option> 
@@ -170,10 +185,10 @@ function CodeEditor() {
                                 <option value="60" mode="go">Go (1.13.5)</option>
                                 <option value="88" mode="UNKNOWN">Groovy (3.0.3)</option> 
                                 <option value="61" mode="UNKNOWN">Haskell (GHC 8.8.1)</option> 
-                                <option value="62" mode="java">Java (OpenJDK 13.0.1)</option>
-                                <option value="1004" mode="java">Java (OpenJDK 14.0.1)</option>
-                                <option value="1005" mode="java">Java Test (OpenJDK 14.0.1, JUnit Platform Console Standalone 1.6.2)</option>
-                                <option value="63" mode="javascript">JavaScript (Node.js 12.14.0)</option>
+                                <option value="java" mode="java">Java (OpenJDK 13.0.1)</option>
+                                <option value="java" mode="java">Java (OpenJDK 14.0.1)</option>
+                                <option value="java" mode="java">Java Test (OpenJDK 14.0.1, JUnit Platform Console Standalone 1.6.2)</option>
+                                <option value="js" mode="javascript">JavaScript (Node.js 12.14.0)</option>
                                 <option value="78" mode="kotlin">Kotlin (1.3.70)</option>
                                 <option value="64" mode="lua">Lua (5.3.5)</option>
                                 <option value="1006" mode="c">MPI (OpenRTE 3.1.3) with C (GCC 8.3.0)</option>
@@ -188,9 +203,9 @@ function CodeEditor() {
                                 <option value="68" mode="php">PHP (7.4.1)</option>
                                 <option value="43" mode="plaintext">Plain Text</option>
                                 <option value="69" mode="UNKNOWN">Prolog (GNU Prolog 1.4.5)</option> 
-                                <option value="70" mode="python">Python (2.7.17)</option>
-                                <option value="71" mode="python">Python (3.8.1)</option>
-                                <option value="1010" mode="python">Python for ML (3.7.3)</option>
+                                <option value="py" mode="python">Python (2.7.17)</option>
+                                <option value="py" mode="python">Python (3.8.1) [Default]</option>
+                                <option value="py" mode="python">Python for ML (3.7.3)</option>
                                 <option value="80" mode="r">R (4.0.0)</option>
                                 <option value="72" mode="ruby">Ruby (2.7.0)</option>
                                 <option value="73" mode="rust">Rust (1.40.0)</option>
@@ -277,7 +292,7 @@ function CodeEditor() {
             />
             <div>
                 <h2>Result</h2>
-                <p>{result}</p>
+                <p>{output}</p>
             </div>
         </div>
         </>
