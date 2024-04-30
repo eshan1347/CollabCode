@@ -7,7 +7,7 @@ import 'tailwindcss/tailwind.css';
 
 
 
-const socket = io('http://localhost:5000');
+const socket = io('http://13.126.228.132:5000');
 
 function CodeEditor() {
     const [content, setContent] = useState('');
@@ -271,7 +271,7 @@ function CodeEditor() {
             const data = new FormData();
             data.append('file', file);
             data.append('ext', ext);
-            await axios.post('http://localhost:5000/upload',data,{
+            await axios.post('http://13.126.228.132:5000/upload',data,{
                 headers: {
                     'Content-Type':'multipart/form-data'
                 }
