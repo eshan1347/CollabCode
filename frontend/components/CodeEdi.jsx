@@ -3,6 +3,8 @@ import io from 'socket.io-client';
 import './CodeEdi.css';
 import axios from 'axios'
 // import AWS from 'aws-sdk';
+import 'tailwindcss/tailwind.css';
+
 
 
 const socket = io('http://localhost:5000');
@@ -16,6 +18,7 @@ function CodeEditor() {
     const [ext, setExt] = useState('py');
     const [file, setFile] = useState(null);
     const [output, setOutput] = useState('');
+    const [ps, setPs] = useState('');
 
     useEffect(() => {
 
@@ -92,6 +95,175 @@ function CodeEditor() {
         // console.log('Selected Language: ' + ext);
     };
 
+    const PSdict = {
+        '1': `
+        1. Minimum Number of Operations to Make Array XOR Equal to K
+        
+        You are given a 0-indexed integer array nums and a positive integer k.
+        
+        You can apply the following operation on the array any number of times:
+        
+            Choose any element of the array and flip a bit in its binary representation. Flipping a bit means changing a 0 to 1 or vice versa.
+        
+        Return the minimum number of operations required to make the bitwise XOR of all elements of the final array equal to k.
+        
+        Note that you can flip leading zero bits in the binary representation of elements. For example, for the number (101)2 you can flip the fourth bit and obtain (1101)2.`,
+        '2': `
+        2. Count Elements With Maximum Frequency
+
+        You are given an array nums consisting of positive integers.
+
+        Return the total frequencies of elements in nums such that those elements all have the maximum frequency.
+
+        The frequency of an element is the number of occurrences of that element in the array.
+
+        
+
+        Example 1:
+
+        Input: nums = [1,2,2,3,1,4]
+        Output: 4
+        Explanation: The elements 1 and 2 have a frequency of 2 which is the maximum frequency in the array.
+        So the number of elements in the array with maximum frequency is 4.
+
+        Example 2:
+
+        Input: nums = [1,2,3,4,5]
+        Output: 5
+        Explanation: All elements of the array have a frequency of 1 which is the maximum.
+        So the number of elements in the array with maximum frequency is 5.
+        `,
+        '3': `
+        3. Climbing Stairs
+
+        You are climbing a staircase. It takes n steps to reach the top.
+
+        Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+        
+
+        Example 1:
+
+        Input: n = 2
+        Output: 2
+        Explanation: There are two ways to climb to the top.
+        1. 1 step + 1 step
+        2. 2 steps
+
+        Example 2:
+
+        Input: n = 3
+        Output: 3
+        Explanation: There are three ways to climb to the top.
+        1. 1 step + 1 step + 1 step
+        2. 1 step + 2 steps
+        3. 2 steps + 1 step
+        `,
+        '4': `
+        4. Largest Odd Number in String
+
+        You are given a string num, representing a large integer. Return the largest-valued odd integer (as a string) that is a non-empty substring of num, or an empty string "" if no odd integer exists.
+
+        A substring is a contiguous sequence of characters within a string.
+
+        
+
+        Example 1:
+
+        Input: num = "52"
+        Output: "5"
+        Explanation: The only non-empty substrings are "5", "2", and "52". "5" is the only odd number.
+
+        Example 2:
+
+        Input: num = "4206"
+        Output: ""
+        Explanation: There are no odd numbers in "4206".
+
+        Example 3:
+
+        Input: num = "35427"
+        Output: "35427"
+        Explanation: "35427" is already an odd number.
+        `,
+        '5': `
+        5. K Inverse Pairs Array
+
+        For an integer array nums, an inverse pair is a pair of integers [i, j] where 0 <= i < j < nums.length and nums[i] > nums[j].
+
+        Given two integers n and k, return the number of different arrays consisting of numbers from 1 to n such that there are exactly k inverse pairs. Since the answer can be huge, return it modulo 109 + 7.
+
+        
+
+        Example 1:
+
+        Input: n = 3, k = 0
+        Output: 1
+        Explanation: Only the array [1,2,3] which consists of numbers from 1 to 3 has exactly 0 inverse pairs.
+
+        Example 2:
+
+        Input: n = 3, k = 1
+        Output: 2
+        Explanation: The array [1,3,2] and [2,1,3] have exactly 1 inverse pair.
+        `,
+        '6': `
+        6. Sort Characters By Frequency
+
+        Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string.
+
+        Return the sorted string. If there are multiple answers, return any of them.
+
+        
+
+        Example 1:
+
+        Input: s = "tree"
+        Output: "eert"
+        Explanation: 'e' appears twice while 'r' and 't' both appear once.
+        So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
+
+        Example 2:
+
+        Input: s = "cccaaa"
+        Output: "aaaccc"
+        Explanation: Both 'c' and 'a' appear three times, so both "cccaaa" and "aaaccc" are valid answers.
+        Note that "cacaca" is incorrect, as the same characters must be together.
+        `,
+        '7': `
+        7. Reorder List
+
+        You are given the head of a singly linked-list. The list can be represented as:
+
+        L0 → L1 → … → Ln - 1 → Ln
+
+        Reorder the list to be on the following form:
+
+        L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+
+        You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+
+        
+
+        Example 1:
+
+        Input: head = [1,2,3,4]
+        Output: [1,4,2,3]
+
+        Example 2:
+
+        Input: head = [1,2,3,4,5]
+        Output: [1,5,2,4,3]
+
+        `
+    }
+
+    const handlePS = (event) => {
+        console.log('Selected PS: ', event.target.value);
+        setPs(PSdict[event.target.value]);
+        console.log(PSdict[event.target.value]);
+    }
+
     const handleFile = async () => {
         socket.emit('code',content);
         const file = new File([content], `code.${ext}`, {type: 'text/plain'});
@@ -124,8 +296,8 @@ function CodeEditor() {
                 <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet" />
                 <link type="text/css" rel="stylesheet" href="CodeEdi.css" />
                 <title>CollabCode - Free and open-source online code editor</title>
-                <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-                <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+                {/* <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" /> */}
+                {/* <link rel="icon" href="./favicon.ico" type="image/x-icon" /> */}
                 <style>
                 </style>
             </head>
@@ -133,7 +305,7 @@ function CodeEditor() {
                 <div id="site-navigation" className="ui small inverted menu">
                     <div id="site-header" className="header item">
                         <a href="/">
-                            <img id="site-icon" src="./assets/judge0_icon.png" width="50" height="30"/>
+                            {/* <img id="site-icon" src="./assets/judge0_icon.png" width="50" height="30"/> */}
                             <h2>CollabCode</h2>
                         </a>
                     </div>
@@ -142,7 +314,7 @@ function CodeEditor() {
                             File <i className="dropdown icon"></i>
                             <div className="menu">
                                 <a className="item" target="_blank" href="/"><i className="file code icon"></i> New File</a>
-                                {/* <div className="item" onClick="downloadSource()"><i className="download icon"></i> Download</div> */}
+                                <div className="item" onClick="downloadSource()"><i className="download icon"></i> Download</div>
                                 <div id="insert-template-btn" className="item"><i className="file code outline icon"></i> Insert template for current language</div>
                             </div>
                         </div>
@@ -230,17 +402,20 @@ function CodeEditor() {
                             <span className="navigation-message-text"></span>
                         </div>
                     </div>
-                    <div className="">
-                        <div id="">
-                            More
-                            <i className="dropdown icon"></i>
-                            <div className="menu">
-                                {/* <!-- Options dynamically generated based on more actions --> */}
-                                
-                            </div>
+                    <div className="item borderless">
+                            <select id="select-language" className="ui dropdown"  onChange={handlePS} >
+                                {/* <!-- Options dynamically generated based on the languages available --> */}
+                                <option>None</option>
+                                <option value="1" >PS1</option>
+                                <option value="2" >PS2</option>
+                                <option value="3" >PS3</option> 
+                                <option value="4" >PS4</option>  
+                                <option value="5" >PS5</option>
+                                <option value="6" >PS6</option>
+                                <option value="7" >PS7</option>
+                            </select>
                         </div>
                     </div>
-                </div>
                 <div id="site-content"></div>
                 <div id="site-modal" className="ui modal">
                     <div className="header">
@@ -279,22 +454,32 @@ function CodeEditor() {
                             <button id="run-btn" onClick={handleFile}  className="ui primary labeled icon button"><i className="play icon"></i><span id="run-btn-label">Run (⌘ + ↵)</span></button>
                         </div>
             </div>
+        </div>
+            <div>
+            <h1 className='text-left pl-8'>Problem Statements</h1>
+            <p className='pl-8 text-lg'><pre>Select problem statement from the dropdown above</pre></p>
+                <p className='text-xl'><pre>{ps}</pre></p>
+            </div>
+            <h1 className='pb-6 pl-8'>Code: </h1>
             <textarea
                 value={content}
                 onChange={handleEdit}
                 rows={10}
                 cols={50}
+                className="w-2/3 pl-8"
                 style={{
                     fontWeight: bold ? 'bold' : 'normal',
                     fontStyle: italic ? 'italic' : 'normal',
                     textDecoration: underline ? 'underline' : 'none'
                 }}
             />
-            <div>
+            <div className='pt-8 pl-8'>
                 <h2>Result</h2>
-                <p>{output}</p>
+                <p>
+                    <pre>{output}</pre>
+                    </p>
             </div>
-        </div>
+        
         </>
     );
 }
