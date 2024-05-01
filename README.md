@@ -1,20 +1,21 @@
 # CollabCode
 
-CollabCode is a real-time collaborative coding platform that allows users to collaborate on coding projects in real-time. It enables multiple users to edit code simultaneously, providing features like formatting options, and real-time updates.
-It also allows to run as well as save your code on a aws cloud server.
+CollabCode is a real-time collaborative coding platform that allows users to collaborate on coding projects in real-time. It enables multiple users to edit code simultaneously, providing features like formatting options, and real-time updates as well few problem statements to work on.
+It is deployed on aws ec2 instance and allows users to run and save code on aws s3 container. It currently supports C, C++ , Java and Python code.
 
 ## Features
 
 - Real-time collaboration: Multiple users can edit code simultaneously, and changes are reflected in real-time for all participants.
 - Formatting options: Users can apply formatting options such as bold, italic, and underline to the code.
 - File upload: Users can upload files to work on projects together.
-- Support for users to code in various programming languages 
+- Problem Statements for Users to Solve
+- Support for users to code in various programming languages (C, C++, Java, Python)
 
 ## Technologies Used
 
 - **Frontend**: React.js, Socket.IO, Axios
 - **Backend**: Node.js, Express.js, Socket.IO, AWS SDK
-- **Deployment**: AWS
+- **Deployment**: AWS EC2
 - **Other**: Multer (for file uploads), AWS S3 (for file storage)
 
 ## Getting Started
@@ -32,6 +33,7 @@ To get started with CollabCode, follow these steps:
    - Frontend: `cd frontend && npm start`
    - Backend: `cd backend && npm start`
 6. Access CollabCode in your web browser at `http://localhost:3000`.
+7. If the server is up : directly browse to and start : http://13.126.228.132:5173/
 
 ## Contributing
 
