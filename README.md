@@ -1,5 +1,7 @@
 # CollabCode
 
+[Website URL](http://13.126.228.132:5173/)
+
 CollabCode is a real-time collaborative coding platform that allows users to collaborate on coding projects in real-time. It enables multiple users to edit code simultaneously, providing features like formatting options, and real-time updates as well few problem statements to work on.
 It is deployed on aws ec2 instance and allows users to run and save code on aws s3 container. It currently supports C, C++ , Java and Python code.
 
