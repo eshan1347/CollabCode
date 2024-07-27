@@ -1,5 +1,8 @@
 # CollabCode
 
+[Screencast from 2024-07-27 15-27-33.webm](https://github.com/user-attachments/assets/9c6846f5-c91b-405b-940b-64325f4fac7e)
+
+
 [Website URL](http://13.126.228.132:5173/)
 
 CollabCode is a real-time collaborative coding platform that allows users to collaborate on coding projects in real-time. It enables multiple users to edit code simultaneously, providing features like formatting options, and real-time updates as well few problem statements to work on.
